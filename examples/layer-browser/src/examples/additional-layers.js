@@ -4,7 +4,8 @@ import {
   GreatCircleLayer,
   S2Layer,
   H3ClusterLayer,
-  H3HexagonLayer
+  H3HexagonLayer,
+  TripsLayer
   // KMLLayer
 } from '@deck.gl/geo-layers';
 
@@ -12,8 +13,8 @@ import {_GPUGridLayer as GPUGridLayer} from '@deck.gl/aggregation-layers';
 import * as h3 from 'h3-js';
 
 import {CylinderGeometry} from '@luma.gl/core';
-import {registerLoaders} from '@loaders.gl/core';
 import {GLBScenegraphLoader, GLTFScenegraphLoader} from '@luma.gl/addons';
+import {registerLoaders} from '@loaders.gl/core';
 
 import * as dataSamples from '../data-samples';
 
@@ -154,6 +155,27 @@ const H3HexagonLayerExample = {
   }
 };
 
+const TripsLayerExample = {
+  layer: TripsLayer,
+  propTypes: {
+    currentTime: {
+      type: 'number',
+      max: 1
+    }
+  },
+  props: {
+    id: 'trips-layer',
+    data: dataSamples.SFTrips,
+    getPath: d => d.segments,
+    getColor: [253, 128, 93],
+    opacity: 0.8,
+    widthMinPixels: 5,
+    rounded: true,
+    trailLength: 0.2,
+    currentTime: 0.1
+  }
+};
+
 /* eslint-disable quote-props */
 export default {
   'Mesh Layers': {
@@ -164,7 +186,8 @@ export default {
     S2Layer: S2LayerExample,
     H3ClusterLayer: H3ClusterLayerExample,
     H3HexagonLayer: H3HexagonLayerExample,
-    GreatCircleLayer: GreatCircleLayerExample
+    GreatCircleLayer: GreatCircleLayerExample,
+    TripsLayer: TripsLayerExample
   },
   'Experimental Core Layers': {
     GPUGridLayer: GPUGridLayerExample,
