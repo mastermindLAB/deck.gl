@@ -21,7 +21,8 @@ import {
   TileLayer,
   ColumnLayer,
   GridCellLayer,
-  S2Layer
+  S2Layer,
+  TripsLayer
 } from 'deck.gl';
 import ContourLayer from '@deck.gl/aggregation-layers/contour-layer/contour-layer';
 
@@ -330,5 +331,19 @@ export const S2LayerDemo = createLayerDemoClass({
     getS2Token: d => d.token,
     getFillColor: d => [d.value * 255, (1 - d.value) * 255, (1 - d.value) * 128, 128],
     getElevation: d => d.value
+  }
+});
+
+export const TripsLayerDemo = createLayerDemoClass({
+  Layer: TripsLayer,
+  dataUrl: `${DATA_URI}/sf.trips.json`,
+  props: {
+    getPath: d => d.segments,
+    getColor: [253, 128, 93],
+    opacity: 0.8,
+    widthMinPixels: 8,
+    rounded: true,
+    trailLength: 0.2,
+    currentTime: 0.5
   }
 });
